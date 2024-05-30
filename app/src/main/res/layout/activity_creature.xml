@@ -1,0 +1,272 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".controller.CreatureActivity">
+
+    <ScrollView
+        android:id="@+id/scrollVeiw"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:contentDescription="Description"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.0">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            tools:context=".controller.CreatureActivity">
+
+            <TextView
+                android:id="@+id/txName"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:padding="15dp"
+                android:text="Name"
+                android:textSize="24sp" />
+
+            <TextView
+                android:id="@+id/txSizeTypeAndAlignment"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="15dp"
+                android:text="Type of creature, alignment" />
+
+            <TextView
+                android:id="@+id/txAcHpSpeed"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="15dp"
+                android:text="Armor Class: \n Hit points: \n Speed:" />
+
+            <TextView
+                android:id="@+id/lbStats"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingTop="15dp"
+                android:text="Stats"
+                android:textAlignment="center"
+                android:textSize="16sp"
+                android:textStyle="bold" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:id="@+id/txLevelAndDuration"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:padding="15dp"
+                    android:paddingStart="20dp"
+                    android:paddingTop="0dp"
+                    android:text="DEX\n10"
+                    android:textAlignment="center" />
+
+                <TextView
+                    android:id="@+id/txCastingTImeAndSchool"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:padding="15dp"
+                    android:paddingTop="0dp"
+                    android:text="STR\n10"
+                    android:textAlignment="center" />
+
+                <TextView
+                    android:id="@+id/txRangeAndComponents"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:padding="15dp"
+                    android:paddingTop="0dp"
+                    android:text="CON\n10"
+                    android:textAlignment="center" />
+
+                <TextView
+                    android:id="@+id/txComponentsAndDamageAndEffects"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:padding="15dp"
+                    android:paddingTop="0dp"
+                    android:text="INT\n10"
+                    android:textAlignment="center" />
+
+                <TextView
+                    android:id="@+id/txStatWis"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:padding="15dp"
+                    android:paddingTop="0dp"
+                    android:text="WIS\n10"
+                    android:textAlignment="center" />
+
+                <TextView
+                    android:id="@+id/txStatCha"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:padding="15dp"
+                    android:paddingTop="0dp"
+                    android:paddingEnd="20dp"
+                    android:text="CHA\n10"
+                    android:textAlignment="center" />
+
+            </LinearLayout>
+
+            <TextView
+                android:id="@+id/txSkillsSensesLanguagesCrVulnerabilitesResistancesAndInmunities"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="15dp"
+                android:text="Skills: Perception +5 \nSenses: passive perception 15\nLanguages: Auran, Aaracokra\nChallenge Rating: 1" />
+
+            <TextView
+                android:id="@+id/lbSpecialAbilities"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingTop="15dp"
+                android:text="Special Abilities"
+                android:textAlignment="center"
+                android:textSize="16sp"
+                android:textStyle="bold"
+                android:visibility="gone" />
+
+            <TextView
+                android:id="@+id/txSpecialAbilities"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="15dp"
+                android:text="Amphibious:\nIt can breathe air and water"
+                android:visibility="gone" />
+
+            <TextView
+                android:id="@+id/lbActions"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingTop="15dp"
+                android:text="Actions"
+                android:textAlignment="center"
+                android:textSize="16sp"
+                android:textStyle="bold"
+                android:visibility="gone" />
+
+            <TextView
+                android:id="@+id/txActions"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="15dp"
+                android:text="Actions\nMultiattack: The creature make three attacks: one with its bite and two with its claws"
+                android:visibility="gone" />
+
+            <TextView
+                android:id="@+id/lbBonusActions"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingTop="15dp"
+                android:text="Bonus Actions"
+                android:textAlignment="center"
+                android:textSize="16sp"
+                android:textStyle="bold"
+                android:visibility="gone" />
+
+            <TextView
+                android:id="@+id/txBonusActions"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="15dp"
+                android:text="Multiattack: The creature make three attacks: one with its bite and two with its claws"
+                android:visibility="gone" />
+
+            <TextView
+                android:id="@+id/lbReactions"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingTop="15dp"
+                android:text="Reactions"
+                android:textAlignment="center"
+                android:textSize="16sp"
+                android:textStyle="bold"
+                android:visibility="gone" />
+
+            <TextView
+                android:id="@+id/txReactions"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="15dp"
+                android:text="Multiattack: The creature make three attacks: one with its bite and two with its claws"
+                android:visibility="gone" />
+
+            <TextView
+                android:id="@+id/lbLegendaryActions"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingTop="15dp"
+                android:text="Legendary Actions"
+                android:textAlignment="center"
+                android:textSize="16sp"
+                android:textStyle="bold"
+                android:visibility="gone" />
+
+            <TextView
+                android:id="@+id/txLegendaryActionsAndLegendaryDesc"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="15dp"
+                android:text="Multiattack: The creature make three attacks: one with its bite and two with its claws"
+                android:visibility="gone" />
+
+            <TextView
+                android:id="@+id/lbDescription"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingTop="15dp"
+                android:text="Description"
+                android:textAlignment="center"
+                android:textSize="16sp"
+                android:textStyle="bold"
+                android:visibility="gone" />
+
+            <TextView
+                android:id="@+id/txDescription"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="15dp"
+                android:text="Multiattack: The creature make three attacks: one with its bite and two with its claws"
+                android:visibility="gone" />
+
+            <TextView
+                android:id="@+id/lbLicesing"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingTop="15dp"
+                android:text="Licensing"
+                android:textAlignment="center"
+                android:textStyle="bold"
+                android:visibility="gone" />
+
+            <TextView
+                android:id="@+id/txLicense"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:autoLink="web"
+                android:linksClickable="true"
+                android:padding="15dp"
+                android:text="License URL and document URL"
+                android:visibility="gone" />
+
+        </LinearLayout>
+    </ScrollView>
+</LinearLayout>
