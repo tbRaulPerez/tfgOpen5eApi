@@ -2,11 +2,13 @@ package com.example.tfg.controller;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBar;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -36,6 +38,7 @@ public class ApiListActivity extends AppCompatActivity {
     String url;
     int contadorPaginacion;
     boolean isSearching;
+    boolean isCharacterCreation;
 
 
     @Override
@@ -49,17 +52,51 @@ public class ApiListActivity extends AppCompatActivity {
 
         recyclerView = findViewById(R.id.rvList);
 
+        Intent i = getIntent();
+
+        //Se recoge el extra que contiene la url de la petición y se crea
+        // un objeto Connections (hereda de AsyncTask) ejecutandolo, pues es una operacion con un tiempo de respuesta largo.
+        url = i.getStringExtra("URL");
+
         //Se dejará de mostrar el nombre de la app en el actionBar además de mostrar un boton de atrás.
         ActionBar actionBar = getSupportActionBar();
         if(actionBar != null){
-            actionBar.setDisplayShowTitleEnabled(false);
+            String title = i.getStringExtra("TITLE");
+            if(title != null) {
+                actionBar.setTitle(title);
+                AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(this);
+                if(url.equals("/races/")){
+                    alertDialogBuilder.setMessage("Choose a race for your character").
+                            setPositiveButton("Ok", new DialogInterface.OnClickListener() {
+                                @Override
+                                public void onClick(DialogInterface dialog, int which) {
+                                    dialog.cancel();
+                                }
+                            }).create().show();
+                }else if(url.equals("/backgrounds/")){
+                    alertDialogBuilder.setMessage("Now hoose a background for your character").
+                            setPositiveButton("Ok", new DialogInterface.OnClickListener() {
+                                @Override
+                                public void onClick(DialogInterface dialog, int which) {
+                                    dialog.cancel();
+                                }
+                            }).create().show();
+                }else if(url.equals("/classes/")){
+                    alertDialogBuilder.setMessage("Finally choose a class for your character").
+                            setPositiveButton("Ok", new DialogInterface.OnClickListener() {
+                                @Override
+                                public void onClick(DialogInterface dialog, int which) {
+                                    dialog.cancel();
+                                }
+                            }).create().show();
+                }
+            } else actionBar.setDisplayShowTitleEnabled(false);
             actionBar.setDisplayHomeAsUpEnabled(true);
         }
-        //Se recoge el extra que contiene la url de la petición y se crea
-        // un objeto Connections (hereda de AsyncTask) ejecutandolo, pues es una operacion con un tiempo de respuesta largo.
-        Intent i = getIntent();
-        url = i.getStringExtra("URL");
+        isCharacterCreation = i.getBooleanExtra("ISCHARACTERCREATION", false);
         new Connections().execute(url);
+
+
 
         //Listener que comprueba cuando el scroll alcanza el fondo de la lista, en cuyo caso añade al final la siguiente
         //pagina de resultados de la api
@@ -145,7 +182,7 @@ public class ApiListActivity extends AppCompatActivity {
                 try {
                     objetoJson = new JSONObject(s);
                     arrayJson = objetoJson.getJSONArray("results");
-                    recyclerAdapter = new RecyclerAdapterConnection(arrayJson, url);
+                    recyclerAdapter = new RecyclerAdapterConnection(arrayJson, url, isCharacterCreation);
 
                     LinearLayoutManager layoutManager = new LinearLayoutManager(ApiListActivity.this);
 
@@ -184,7 +221,7 @@ public class ApiListActivity extends AppCompatActivity {
                     throw new RuntimeException(e);
                 }
             }else{
-                Toast.makeText(ApiListActivity.this, "there was a problem while loading data", Toast.LENGTH_LONG).show();
+                //Toast.makeText(ApiListActivity.this, "there was a problem while loading data", Toast.LENGTH_LONG).show();
             }
         }
     }

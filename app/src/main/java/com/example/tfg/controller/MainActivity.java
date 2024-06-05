@@ -64,7 +64,7 @@ public class MainActivity extends AppCompatActivity {
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item){
         int itemId = item.getItemId();
-        if(itemId == R.id.item_logout){
+        if(itemId == R.id.item_choose){
             fAuth.signOut();
             finish();
             startActivity(new Intent(MainActivity.this, LoginActivity.class));

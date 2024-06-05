@@ -26,7 +26,7 @@ public class SpellActivity extends AppCompatActivity {
         txCastingTimeAndSchool = findViewById(R.id.txCastingTImeAndSchool);
         txRangeAndComponents = findViewById(R.id.txRangeAndComponents);
         txMaterial = findViewById(R.id.txSkillsLanguagesEquipment);
-        txDescription = findViewById(R.id.txDescription);
+        txDescription = findViewById(R.id.txMiscelaneous);
         txClasses = findViewById(R.id.txClasses);
         txHigherLevels = findViewById(R.id.txFeature);
         lbLicense = findViewById(R.id.lbLicesing2);

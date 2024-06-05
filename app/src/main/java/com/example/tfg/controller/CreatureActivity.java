@@ -26,7 +26,7 @@ public class CreatureActivity extends AppCompatActivity {
         setContentView(R.layout.activity_creature);
         txName = findViewById(R.id.txName);
         txSizeTypeAndAlignment = findViewById(R.id.txSizeTypeAndAlignment);
-        txAcHpSpeed = findViewById(R.id.txAcHpSpeed);
+        txAcHpSpeed = findViewById(R.id.txValues);
         lbStats = findViewById(R.id.lbStats);
         txStatStr = findViewById(R.id.txLevelAndDuration);
         txStatDex = findViewById(R.id.txCastingTImeAndSchool);
@@ -46,7 +46,7 @@ public class CreatureActivity extends AppCompatActivity {
         lbLegendaryActions = findViewById(R.id.lbLegendaryActions);
         txLegendaryActions = findViewById(R.id.txLegendaryActionsAndLegendaryDesc);
         lbDescription = findViewById(R.id.lbDescription);
-        txDescription = findViewById(R.id.txDescription);
+        txDescription = findViewById(R.id.txMiscelaneous);
         lbLicensing = findViewById(R.id.lbLicesing);
         txLicense = findViewById(R.id.txLicense);
 

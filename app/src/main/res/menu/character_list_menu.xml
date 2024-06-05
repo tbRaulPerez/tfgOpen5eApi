@@ -4,5 +4,7 @@
 
     <item
         android:id="@+id/item_choose"
-        android:title="Log Out" />
+        android:icon="@drawable/add_icon"
+        android:title="Add"
+        app:showAsAction="always" />
 </menu>

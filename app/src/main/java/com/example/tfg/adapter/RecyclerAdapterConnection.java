@@ -10,8 +10,16 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.tfg.R;
+import com.example.tfg.controller.ArmorActivity;
+import com.example.tfg.controller.BackgroundItemActivity;
+import com.example.tfg.controller.CharacterClassActivity;
 import com.example.tfg.controller.CreatureActivity;
+import com.example.tfg.controller.MagicItemActivity;
+import com.example.tfg.controller.RaceActivity;
 import com.example.tfg.controller.SpellActivity;
+import com.example.tfg.controller.WeaponActivity;
+import com.example.tfg.model.Armor;
+import com.example.tfg.model.CharacterClass;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -21,10 +29,12 @@ import org.json.JSONObject;
 public class RecyclerAdapterConnection extends RecyclerView.Adapter<RecyclerAdapterConnection.RecyclerHolder> {
     JSONArray list;
     String objectType;
+    Boolean isCharacterCreation;
     //Recibe un JSONArray con el que creará los objetos del recyclerView
-    public RecyclerAdapterConnection(JSONArray list, String objectType){
+    public RecyclerAdapterConnection(JSONArray list, String objectType, boolean isCharacterCreation){
         this.list = list;
         this.objectType = objectType;
+        this.isCharacterCreation = isCharacterCreation;
     }
     //Metodo que recibe una lista filtrada por el searchbar y la asigna al recyclerView
     public void setFilteredList(JSONArray filteredList){
@@ -54,22 +64,32 @@ public class RecyclerAdapterConnection extends RecyclerView.Adapter<RecyclerAdap
             holder.itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    if(objectType.equals("/monsters/")){
-                        startListItemActivity(holder, CreatureActivity.class, jsonObject);
-                    } else if(objectType.equals("/spells/")){
-                        startListItemActivity(holder, SpellActivity.class, jsonObject);
-                    } else if(objectType.equals("/backgrounds/")){
-//                        startListItemActivity(holder, MechanicsItemActivity.class, url);
-                    } else if(objectType.equals("/races/")){
-//                        startListItemActivity(holder, ClassActivity.class, url);
-                    } else if(objectType.equals("/classes/")){
-//                        startListItemActivity(holder, SubracesActivity.class, url);
-                    } else if(objectType.equals("/magicitems/")){
-//                        startListItemActivity(holder, SubracesActivity.class, url);
-                    } else if(objectType.equals("/weapons/")){
-//                        startListItemActivity(holder, SubracesActivity.class, url);
-                    } else if(objectType.equals("/armor/")){
-//                        startListItemActivity(holder, SubracesActivity.class, url);
+                    if(isCharacterCreation){
+                        if (objectType.equals("/races/")) {
+                            startListItemActivityCharacterCreation(holder, RaceActivity.class, jsonObject, "Choose a race");
+                        } else if (objectType.equals("/backgrounds/")) {
+                            startListItemActivityCharacterCreation(holder, BackgroundItemActivity.class, jsonObject, "Choose a background");
+                        }else if (objectType.equals("/classes/")) {
+                            startListItemActivityCharacterCreation(holder, CharacterClassActivity.class, jsonObject, "Choose a class");
+                        }
+                    }else {
+                        if (objectType.equals("/monsters/")) {
+                            startListItemActivity(holder, CreatureActivity.class, jsonObject);
+                        } else if (objectType.equals("/spells/")) {
+                            startListItemActivity(holder, SpellActivity.class, jsonObject);
+                        } else if (objectType.equals("/backgrounds/")) {
+                            startListItemActivity(holder, BackgroundItemActivity.class, jsonObject);
+                        } else if (objectType.equals("/races/")) {
+                            startListItemActivity(holder, RaceActivity.class, jsonObject);
+                        } else if (objectType.equals("/classes/")) {
+                            startListItemActivity(holder, CharacterClassActivity.class, jsonObject);
+                        } else if (objectType.equals("/magicitems/")) {
+                            startListItemActivity(holder, MagicItemActivity.class, jsonObject);
+                        } else if (objectType.equals("/weapons/")) {
+                            startListItemActivity(holder, WeaponActivity.class, jsonObject);
+                        } else if (objectType.equals("/armor/")) {
+                            startListItemActivity(holder, ArmorActivity.class, jsonObject);
+                        }
                     }
                 }
             });
@@ -92,6 +112,16 @@ public class RecyclerAdapterConnection extends RecyclerView.Adapter<RecyclerAdap
                 intent.putExtra("OBJETOJSON", objetoJSON.toString());
             }
             holder.itemView.getContext().startActivity(intent);
+
+    }
+    public void startListItemActivityCharacterCreation(RecyclerHolder holder, Class activityClass, JSONObject objetoJSON, String title){
+        Intent intent = new Intent(holder.itemView.getContext(), activityClass);
+        System.out.println(objetoJSON.toString());
+        if(objetoJSON != null){
+            intent.putExtra("OBJETOJSON", objetoJSON.toString());
+            intent.putExtra("TITLE", title);
+        }
+        holder.itemView.getContext().startActivity(intent);
 
     }
 

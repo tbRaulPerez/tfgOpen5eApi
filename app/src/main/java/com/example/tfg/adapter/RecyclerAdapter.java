@@ -12,6 +12,8 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.tfg.R;
 import com.example.tfg.controller.ApiListActivity;
+import com.example.tfg.controller.CharacterActivity;
+import com.example.tfg.controller.CharactersListActivity;
 import com.example.tfg.model.ListItem;
 
 import java.util.List;
@@ -47,7 +49,7 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.Recycl
             public void onClick(View view) {
                 switch (holder.title.getText().toString()){
                     case "My Characters":
-                        startListItemActivity(holder, ApiListActivity.class);
+                        startListItemActivity(holder, CharactersListActivity.class);
                         break;
                     case "Creatures":
                         startListItemActivity(holder, ApiListActivity.class, "/monsters/");
@@ -64,7 +66,7 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.Recycl
                     case "Classes":
                         startListItemActivity(holder, ApiListActivity.class, "/classes/");
                         break;
-                    case "Magic Items":
+                    case "Magic items":
                         startListItemActivity(holder, ApiListActivity.class, "/magicitems/");
                         break;
                     case "Weapons":

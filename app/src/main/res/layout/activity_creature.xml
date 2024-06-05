@@ -41,7 +41,7 @@
                 android:text="Type of creature, alignment" />
 
             <TextView
-                android:id="@+id/txAcHpSpeed"
+                android:id="@+id/txValues"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:padding="15dp"
@@ -240,7 +240,7 @@
                 android:visibility="gone" />
 
             <TextView
-                android:id="@+id/txDescription"
+                android:id="@+id/txMiscelaneous"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:padding="15dp"

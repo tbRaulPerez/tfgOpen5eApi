@@ -1,35 +1,31 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".controller.BackgroundItemActivity">
+    android:orientation="vertical"
+    tools:context=".controller.MagicItemActivity">
 
     <ScrollView
         android:id="@+id/scrollVeiw"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:contentDescription="Description"
+        android:textAlignment="center"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.0">
+        app:layout_constraintVertical_bias="0.0"
+        tools:visibility="visible">
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical"
             tools:context=".controller.CreatureActivity">
-
-            <androidx.appcompat.widget.Toolbar
-                android:id="@+id/toolbar4"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:background="?attr/colorPrimary"
-                android:minHeight="?attr/actionBarSize"
-                android:theme="?attr/actionBarTheme" />
 
             <TextView
                 android:id="@+id/txName"
@@ -39,6 +35,14 @@
                 android:padding="15dp"
                 android:text="Name"
                 android:textSize="24sp" />
+
+            <TextView
+                android:id="@+id/txClassTable"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="15dp"
+                android:text="TextView"
+                android:textAlignment="center" />
 
             <TextView
                 android:id="@+id/lbDescription"
@@ -56,36 +60,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:padding="15dp"
-                android:text="Multiattack: The creature make three attacks: one with its bite and two with its claws"
-                android:visibility="visible" />
-
-            <TextView
-                android:id="@+id/txSkillsLanguagesEquipment"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:padding="15dp"
-                android:paddingStart="25dp"
-                android:paddingEnd="25dp"
-                android:text="Multiattack: The creature make three attacks: one with its bite and two with its claws"
-                android:visibility="visible" />
-
-            <TextView
-                android:id="@+id/lbFeature"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:paddingTop="15dp"
-                android:text="Features"
-                android:textAlignment="center"
-                android:textSize="16sp"
-                android:textStyle="bold"
-                android:visibility="visible" />
-
-            <TextView
-                android:id="@+id/txFeature"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:padding="15dp"
-                android:text="Multiattack: The creature make three attacks: one with its bite and two with its claws"
+                android:text="des\nage\nsize"
+                android:textSize="14sp"
                 android:visibility="visible" />
 
             <TextView
@@ -110,4 +86,4 @@
 
         </LinearLayout>
     </ScrollView>
-</androidx.constraintlayout.widget.ConstraintLayout>
+</LinearLayout>
