@@ -30,6 +30,7 @@ public class RaceActivity extends AppCompatActivity {
     private Race race;
     private Toolbar toolbar;
     private String title;
+    private Boolean isCharacterCreation;
 
 
 
@@ -47,7 +48,6 @@ public class RaceActivity extends AppCompatActivity {
         txSubraces = findViewById(R.id.txSubraces);
         lbLicense = findViewById(R.id.lbLicesing2);
         txLicense = findViewById(R.id.txLicense2);
-
         toolbar = findViewById(R.id.toolbar4);
         setSupportActionBar(toolbar);
         //Se dejará de mostrar el nombre de la app en el actionBar además de mostrar un boton de atrás.
@@ -61,7 +61,6 @@ public class RaceActivity extends AppCompatActivity {
             }
             actionBar.setDisplayHomeAsUpEnabled(true);
         }
-
         try {
             objetoJSON = new JSONObject(getIntent().getStringExtra("OBJETOJSON"));
             race = new Race(objetoJSON);
@@ -105,7 +104,7 @@ public class RaceActivity extends AppCompatActivity {
             }
             if(race.getTraits() != null && !race.getTraits().equals("")){
                 lbTraits.setVisibility(View.VISIBLE);
-                lbTraits.setVisibility(View.VISIBLE);
+                txTraits.setVisibility(View.VISIBLE);
                 txTraits.append("Traits: " + race.getTraits() + "\n\n");
             }
             if(race.getLanguages() != null && !race.getLanguages().equals("")){
@@ -113,22 +112,22 @@ public class RaceActivity extends AppCompatActivity {
                 lbTraits.setVisibility(View.VISIBLE);
                 txTraits.append("Languages: " + race.getLanguages() + "\n\n");
             }
-            if(race.getAbilityScoreImprovement() != null && !race.getAbilityScoreImprovement().equals("")){
+            if(race.getAsi_desc() != null && !race.getAsi_desc().equals("")){
                 lbTraits.setVisibility(View.VISIBLE);
                 lbTraits.setVisibility(View.VISIBLE);
-                txTraits.append("Ability Score improvement: " + race.getAbilityScoreImprovement() + "\n\n");
+                txTraits.append("Ability Score improvement: " + race.getAsi_desc() + "\n\n");
             }
 
             txLicense.setText("");
-            if(race.getLicenseURL() != null && !race.getLicenseURL().equals("")){
+            if(race.getDocument__license_url() != null && !race.getDocument__license_url().equals("")){
                 lbLicense.setVisibility(View.VISIBLE);
                 txLicense.setVisibility(View.VISIBLE);
-                txLicense.append("License URL: " + race.getLicenseURL());
+                txLicense.append("License URL: " + race.getDocument__license_url());
             }
-            if(race.getDocumentURL() != null && !race.getDocumentURL().equals("")){
+            if(race.getDocument__url() != null && !race.getDocument__url().equals("")){
                 lbLicense.setVisibility(View.VISIBLE);
                 txLicense.setVisibility(View.VISIBLE);
-                txLicense.append("\nDocument URL: " + race.getDocumentURL());
+                txLicense.append("\nDocument URL: " + race.getDocument__url());
             }
 
 
@@ -167,7 +166,9 @@ public class RaceActivity extends AppCompatActivity {
             Intent intent = new Intent(this, ApiListActivity.class);
             intent.putExtra("URL", "/backgrounds/");
             intent.putExtra("TITLE", "Choose a background");
+            intent.putExtra("CHOSENRACE", objetoJSON.toString());
             intent.putExtra("ISCHARACTERCREATION", true);
+            intent.addFlags(Intent.FLAG_ACTIVITY_NO_HISTORY);
             this.startActivity(intent);
             return true;
         }

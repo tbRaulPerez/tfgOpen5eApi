@@ -9,7 +9,7 @@ import java.io.Serializable;
 public class Race implements Serializable {
     private String name;
     private String desc;
-    private String abilityScoreImprovement;
+    private String asi_desc;
     private String age;
     private String size;
     private JSONObject speed;
@@ -17,8 +17,8 @@ public class Race implements Serializable {
     private String vision;
     private String traits;
     private JSONArray subraces;
-    private String licenseURL;
-    private String documentURL;
+    private String document__license_url;
+    private String document__url;
 
     public Race(JSONObject objetoJson) {
         try {
@@ -29,7 +29,7 @@ public class Race implements Serializable {
                 this.desc = objetoJson.getString("desc");
             }
             if (objetoJson.has("asi_desc") && !objetoJson.isNull("asi_desc")) {
-                this.abilityScoreImprovement = objetoJson.getString("asi_desc");
+                this.asi_desc = objetoJson.getString("asi_desc");
             }
             if (objetoJson.has("age") && !objetoJson.isNull("age")) {
                 this.age = objetoJson.getString("age");
@@ -57,10 +57,10 @@ public class Race implements Serializable {
                 this.subraces = objetoJson.getJSONArray("subraces");
             }
             if (objetoJson.has("document__license_url") && !objetoJson.isNull("document__license_url")) {
-                this.licenseURL = objetoJson.getString("document__license_url");
+                this.document__license_url = objetoJson.getString("document__license_url");
             }
             if (objetoJson.has("document__url") && !objetoJson.isNull("document__url")) {
-                this.documentURL = objetoJson.getString("document__url");
+                this.document__url = objetoJson.getString("document__url");
             }
         } catch (JSONException e) {
             throw new RuntimeException(e);
@@ -83,12 +83,12 @@ public class Race implements Serializable {
         this.desc = desc;
     }
 
-    public String getAbilityScoreImprovement() {
-        return abilityScoreImprovement;
+    public String getAsi_desc() {
+        return asi_desc;
     }
 
-    public void setAbilityScoreImprovement(String abilityScoreImprovement) {
-        this.abilityScoreImprovement = abilityScoreImprovement;
+    public void setAsi_desc(String asi_desc) {
+        this.asi_desc = asi_desc;
     }
 
     public String getAge() {
@@ -147,19 +147,19 @@ public class Race implements Serializable {
         this.subraces = subraces;
     }
 
-    public String getLicenseURL() {
-        return licenseURL;
+    public String getDocument__license_url() {
+        return document__license_url;
     }
 
-    public void setLicenseURL(String licenseURL) {
-        this.licenseURL = licenseURL;
+    public void setDocument__license_url(String document__license_url) {
+        this.document__license_url = document__license_url;
     }
 
-    public String getDocumentURL() {
-        return documentURL;
+    public String getDocument__url() {
+        return document__url;
     }
 
-    public void setDocumentURL(String documentURL) {
-        this.documentURL = documentURL;
+    public void setDocument__url(String document__url) {
+        this.document__url = document__url;
     }
 }

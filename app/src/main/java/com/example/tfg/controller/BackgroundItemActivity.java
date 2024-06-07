@@ -23,6 +23,8 @@ public class BackgroundItemActivity extends AppCompatActivity {
     private Background background;
     private Toolbar toolbar;
     private String title;
+    private boolean isCharacterCreation;
+    private String chosenRaceString;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -82,6 +84,11 @@ public class BackgroundItemActivity extends AppCompatActivity {
         } catch (JSONException e) {
             throw new RuntimeException(e);
         }
+        
+        isCharacterCreation = getIntent().getBooleanExtra("ISCHARACTERCREATION", false);
+        if(isCharacterCreation){
+            chosenRaceString = getIntent().getStringExtra("CHOSENRACE");
+        }
 
     }
     @Override
@@ -101,7 +108,10 @@ public class BackgroundItemActivity extends AppCompatActivity {
             Intent intent = new Intent(this,ApiListActivity.class);
             intent.putExtra("URL", "/classes/");
             intent.putExtra("TITLE", "Choose a class");
+            intent.putExtra("CHOSENRACE", chosenRaceString);
+            intent.putExtra("CHOSENBACKGROUND", objetoJSON.toString());
             intent.putExtra("ISCHARACTERCREATION", true);
+            intent.addFlags(Intent.FLAG_ACTIVITY_NO_HISTORY);
             this.startActivity(intent);
             return true;
         }

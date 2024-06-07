@@ -60,6 +60,7 @@ public class CharactersListActivity extends AppCompatActivity {
             intent.putExtra("URL", "/races/");
             intent.putExtra("TITLE", "Choose a race");
             intent.putExtra("ISCHARACTERCREATION", true);
+            intent.addFlags(Intent.FLAG_ACTIVITY_NO_HISTORY);
             this.startActivity(intent);
         }
         return super.onOptionsItemSelected(item);

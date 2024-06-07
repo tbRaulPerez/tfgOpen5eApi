@@ -54,4 +54,5 @@ dependencies {
 
     //markwon
     implementation ("io.noties.markwon:core:4.6.2")
+
 }

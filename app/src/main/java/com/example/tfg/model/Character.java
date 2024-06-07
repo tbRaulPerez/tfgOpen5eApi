@@ -87,4 +87,18 @@ public class Character {
     public void setMagicItems(ArrayList<MagicItem> magicItems) {
         this.magicItems = magicItems;
     }
+
+    @Override
+    public String toString() {
+        return "Character{" +
+                "name='" + name + '\'' +
+                ", background=" + background +
+                ", cClass=" + cClass +
+                ", race=" + race +
+                ", spells=" + spells +
+                ", armors=" + armors +
+                ", weapons=" + weapons +
+                ", magicItems=" + magicItems +
+                '}';
+    }
 }

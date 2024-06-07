@@ -1,5 +1,6 @@
 package com.example.tfg.controller;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
@@ -23,12 +24,18 @@ import com.example.tfg.model.CharacterClass;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import io.noties.markwon.Markwon;
+
 public class CharacterClassActivity extends AppCompatActivity {
     private TextView txName, txMiscelanous,txDescription,txTable, txSubclasses, lbLicense, txLicense;
     private JSONObject objetoJSON;
     private CharacterClass cClass;
     private Toolbar toolbar;
     private String title;
+    private boolean isCharacterCreation;
+    private String chosenRaceString;
+    private String choosenBackgroundString;
+    public static Activity thisActivity;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -40,6 +47,7 @@ public class CharacterClassActivity extends AppCompatActivity {
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
             return insets;
         });
+        Markwon markwon = Markwon.create(this);
         txName = findViewById(R.id.txName);
         txMiscelanous = findViewById(R.id.txMiscelaneous);
         txDescription = findViewById(R.id.txDescription);
@@ -102,17 +110,20 @@ public class CharacterClassActivity extends AppCompatActivity {
             }
             txDescription.setText("");
             if(cClass.getDesc() != null && !cClass.getDesc().equals("")){
-                txDescription.append(cClass.getDesc() + ".\n\n");
+                markwon.setMarkdown(txDescription, cClass.getDesc() + ".\n\n");
+                //txDescription.append(cClass.getDesc() + ".\n\n");
             }
 
             txSubclasses.setText("");
             if(cClass.getArchetypes() != null && cClass.getArchetypes().length() != 0){
+                String subclasses = "";
                 for(int i = 0; i < cClass.getArchetypes().length(); i++){
-                    txSubclasses.append(cClass.getArchetypes().getJSONObject(i).getString("name").toUpperCase() + "\n\n");
-                    txSubclasses.append(cClass.getArchetypes().getJSONObject(i).getString("desc") + "\n\n");
-                    txSubclasses.append("License Url: " + cClass.getArchetypes().getJSONObject(i).getString("document__url") + "\n\n");
-                    txSubclasses.append("________________________________________\n\n");
+                    subclasses = subclasses + cClass.getArchetypes().getJSONObject(i).getString("name").toUpperCase() + "\n\n";
+                    subclasses = subclasses + cClass.getArchetypes().getJSONObject(i).getString("desc") + "\n\n";
+                    subclasses = subclasses +"License Url: " + cClass.getArchetypes().getJSONObject(i).getString("document__url") + "\n\n";
+                    subclasses = subclasses +"________________________________________\n\n";
                 }
+                markwon.setMarkdown(txSubclasses, subclasses);
             }
             if(cClass.getLicenseURL() != null && !cClass.getLicenseURL().equals("")){
                 lbLicense.setVisibility(View.VISIBLE);
@@ -127,6 +138,12 @@ public class CharacterClassActivity extends AppCompatActivity {
 
         } catch (JSONException e) {
             throw new RuntimeException(e);
+        }
+
+        isCharacterCreation = getIntent().getBooleanExtra("ISCHARACTERCREATION", false);
+        if(isCharacterCreation){
+            chosenRaceString = getIntent().getStringExtra("CHOSENRACE");
+            choosenBackgroundString = getIntent().getStringExtra("CHOSENBACKGROUND");
         }
     }
     @Override
@@ -145,6 +162,9 @@ public class CharacterClassActivity extends AppCompatActivity {
         } else if(item.getItemId() == R.id.item_choose){
             Intent intent = new Intent(this,ChooseNameActivity.class);
             intent.putExtra("TITLE", "Choose a name");
+            intent.putExtra("CHOSENRACE", chosenRaceString);
+            intent.putExtra("CHOSENBACKGROUND", choosenBackgroundString);
+            intent.putExtra("CHOSENCLASS", objetoJSON.toString());
             intent.putExtra("ISCHARACTERCREATION", true);
             this.startActivity(intent);
             return true;

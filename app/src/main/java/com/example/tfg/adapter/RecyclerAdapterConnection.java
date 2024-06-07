@@ -1,5 +1,7 @@
 package com.example.tfg.adapter;
 
+import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -30,11 +32,16 @@ public class RecyclerAdapterConnection extends RecyclerView.Adapter<RecyclerAdap
     JSONArray list;
     String objectType;
     Boolean isCharacterCreation;
+    String chosenRaceString, chosenBackgroundString;
+    Context context;
     //Recibe un JSONArray con el que creará los objetos del recyclerView
-    public RecyclerAdapterConnection(JSONArray list, String objectType, boolean isCharacterCreation){
+    public RecyclerAdapterConnection(JSONArray list, String objectType, boolean isCharacterCreation, String chosenRaceString, String chosenBackgroundString, Context context){
         this.list = list;
         this.objectType = objectType;
         this.isCharacterCreation = isCharacterCreation;
+        this.chosenRaceString = chosenRaceString;
+        this.chosenBackgroundString = chosenBackgroundString;
+        this.context = context;
     }
     //Metodo que recibe una lista filtrada por el searchbar y la asigna al recyclerView
     public void setFilteredList(JSONArray filteredList){
@@ -107,7 +114,6 @@ public class RecyclerAdapterConnection extends RecyclerView.Adapter<RecyclerAdap
     //Lanza una actividad recibiendo por parametro el RecyclerHolder, la clase de la actividad, y la url
     public void startListItemActivity(RecyclerHolder holder, Class activityClass, JSONObject objetoJSON){
         Intent intent = new Intent(holder.itemView.getContext(), activityClass);
-        System.out.println(objetoJSON.toString());
             if(objetoJSON != null){
                 intent.putExtra("OBJETOJSON", objetoJSON.toString());
             }
@@ -116,13 +122,19 @@ public class RecyclerAdapterConnection extends RecyclerView.Adapter<RecyclerAdap
     }
     public void startListItemActivityCharacterCreation(RecyclerHolder holder, Class activityClass, JSONObject objetoJSON, String title){
         Intent intent = new Intent(holder.itemView.getContext(), activityClass);
-        System.out.println(objetoJSON.toString());
         if(objetoJSON != null){
             intent.putExtra("OBJETOJSON", objetoJSON.toString());
             intent.putExtra("TITLE", title);
+            intent.putExtra("ISCHARACTERCREATION", true);
+            if(chosenRaceString!=null){
+                intent.putExtra("CHOSENRACE", chosenRaceString);
+                if(chosenRaceString!=null){
+                    intent.putExtra("CHOSENBACKGROUND", chosenBackgroundString);
+                }
+            }
         }
+        intent.addFlags(Intent.FLAG_ACTIVITY_NO_HISTORY);
         holder.itemView.getContext().startActivity(intent);
-
     }
 
     public class RecyclerHolder extends RecyclerView.ViewHolder {

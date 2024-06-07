@@ -33,12 +33,15 @@ public class ApiListActivity extends AppCompatActivity {
     RecyclerView recyclerView;
     RecyclerAdapterConnection recyclerAdapter;
     JSONObject objetoJson;
+    String chosenRaceString;
+    private String chosenBackgroundString;
     JSONArray arrayJson;
     Toolbar toolbar;
     String url;
     int contadorPaginacion;
     boolean isSearching;
     boolean isCharacterCreation;
+
 
 
     @Override
@@ -53,6 +56,8 @@ public class ApiListActivity extends AppCompatActivity {
         recyclerView = findViewById(R.id.rvList);
 
         Intent i = getIntent();
+
+
 
         //Se recoge el extra que contiene la url de la petición y se crea
         // un objeto Connections (hereda de AsyncTask) ejecutandolo, pues es una operacion con un tiempo de respuesta largo.
@@ -94,8 +99,12 @@ public class ApiListActivity extends AppCompatActivity {
             actionBar.setDisplayHomeAsUpEnabled(true);
         }
         isCharacterCreation = i.getBooleanExtra("ISCHARACTERCREATION", false);
-        new Connections().execute(url);
+        if(isCharacterCreation){
+            chosenRaceString = getIntent().getStringExtra("CHOSENRACE");
+            chosenBackgroundString = getIntent().getStringExtra("CHOSENBACKGROUND");
+        }
 
+        new Connections().execute(url);
 
 
         //Listener que comprueba cuando el scroll alcanza el fondo de la lista, en cuyo caso añade al final la siguiente
@@ -182,7 +191,7 @@ public class ApiListActivity extends AppCompatActivity {
                 try {
                     objetoJson = new JSONObject(s);
                     arrayJson = objetoJson.getJSONArray("results");
-                    recyclerAdapter = new RecyclerAdapterConnection(arrayJson, url, isCharacterCreation);
+                    recyclerAdapter = new RecyclerAdapterConnection(arrayJson, url, isCharacterCreation, chosenRaceString, chosenBackgroundString, getApplicationContext());
 
                     LinearLayoutManager layoutManager = new LinearLayoutManager(ApiListActivity.this);
 
