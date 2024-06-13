@@ -8,6 +8,14 @@
     android:orientation="vertical"
     tools:context=".controller.CharacterActivity">
 
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/toolbar4"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="?attr/colorPrimary"
+        android:minHeight="?attr/actionBarSize"
+        android:theme="?attr/actionBarTheme" />
+
     <com.google.android.material.tabs.TabLayout
         android:id="@+id/CharacterTabs"
         android:layout_width="match_parent"
@@ -31,17 +39,6 @@
             android:layout_height="wrap_content"
             android:text="Race" />
 
-        <com.google.android.material.tabs.TabItem
-            android:id="@+id/TabItemInventory"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Inventory" />
-
-        <com.google.android.material.tabs.TabItem
-            android:id="@+id/TabItemSpells"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Spells" />
     </com.google.android.material.tabs.TabLayout>
 
     <ScrollView
@@ -78,11 +75,12 @@
                     android:layout_height="wrap_content"
                     android:padding="15dp"
                     android:paddingEnd="0dp"
-                    android:text="Level " />
+                    android:text="Level "
+                    android:textStyle="bold" />
 
                 <Spinner
                     android:id="@+id/spLevel"
-                    android:layout_width="50dp"
+                    android:layout_width="75dp"
                     android:layout_height="wrap_content"
                     android:padding="15dp"
                     android:paddingStart="0dp"
@@ -101,12 +99,70 @@
 
             </LinearLayout>
 
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:id="@+id/lbHitPoints"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:padding="15dp"
+                    android:text="Hit points:"
+                    android:textStyle="bold" />
+
+                <EditText
+                    android:id="@+id/edtHitPoints"
+                    android:layout_width="50dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="0"
+                    android:ems="10"
+                    android:inputType="number"
+                    android:text="30"
+                    android:textAlignment="textEnd"
+                    android:textSize="18sp" />
+
+                <TextView
+                    android:id="@+id/txMaxHitPoints"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:padding="15dp"
+                    android:text="/100" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:id="@+id/lbArmorClass"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:padding="15dp"
+                    android:text="Armor Class:"
+                    android:textStyle="bold" />
+
+                <EditText
+                    android:id="@+id/edtArmorClass"
+                    android:layout_width="50dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="0"
+                    android:ems="10"
+                    android:inputType="number"
+                    android:minHeight="48dp"
+                    android:text="10"
+                    android:textAlignment="center" />
+            </LinearLayout>
+
             <TextView
                 android:id="@+id/txValues"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:padding="15dp"
-                android:text="Hit points: \nArmor  Class: \nSpeed: \nProficiency Bonus:" />
+                android:text="Class: \nSpeed: \nProficiency Bonus:" />
 
             <TextView
                 android:id="@+id/lbStats"
@@ -118,72 +174,160 @@
                 android:textSize="16sp"
                 android:textStyle="bold" />
 
+            <TableLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <TableRow
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+
+                    <TextView
+                        android:id="@+id/txStatDex"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_weight="0.1"
+                        android:padding="15dp"
+                        android:paddingTop="0dp"
+                        android:text="STR"
+                        android:textAlignment="center" />
+
+                    <TextView
+                        android:id="@+id/txStatStr"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_weight="0.1"
+                        android:padding="15dp"
+                        android:paddingStart="20dp"
+                        android:paddingTop="0dp"
+                        android:text="DEX"
+                        android:textAlignment="center" />
+
+                    <TextView
+                        android:id="@+id/txStatCon"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_weight="0.1"
+                        android:padding="15dp"
+                        android:paddingTop="0dp"
+                        android:text="CON"
+                        android:textAlignment="center" />
+
+                    <TextView
+                        android:id="@+id/txStatInt"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_weight="0.1"
+                        android:padding="15dp"
+                        android:paddingTop="0dp"
+                        android:text="INT"
+                        android:textAlignment="center" />
+
+                    <TextView
+                        android:id="@+id/txStatWis"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_weight="0.1"
+                        android:padding="15dp"
+                        android:paddingTop="0dp"
+                        android:text="WIS"
+                        android:textAlignment="center" />
+
+                    <TextView
+                        android:id="@+id/txStatCha"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_weight="0.1"
+                        android:padding="15dp"
+                        android:paddingTop="0dp"
+                        android:paddingEnd="20dp"
+                        android:text="CHA"
+                        android:textAlignment="center" />
+                </TableRow>
+
+                <TableRow
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+
+                    <EditText
+                        android:id="@+id/edtStr"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="0.1"
+                        android:ems="10"
+                        android:inputType="number"
+                        android:text="10"
+                        android:textAlignment="center"
+                        android:textSize="18sp"
+                        tools:ignore="TouchTargetSizeCheck" />
+
+                    <EditText
+                        android:id="@+id/edtDex"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="0.1"
+                        android:ems="10"
+                        android:inputType="number"
+                        android:text="10"
+                        android:textAlignment="center"
+                        android:textSize="18sp"
+                        tools:ignore="TouchTargetSizeCheck" />
+
+                    <EditText
+                        android:id="@+id/edtCon"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="0.1"
+                        android:ems="10"
+                        android:inputType="number"
+                        android:text="10"
+                        android:textAlignment="center"
+                        android:textSize="18sp"
+                        tools:ignore="TouchTargetSizeCheck" />
+
+                    <EditText
+                        android:id="@+id/edtInt"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="0.1"
+                        android:ems="10"
+                        android:inputType="number"
+                        android:text="10"
+                        android:textAlignment="center"
+                        android:textSize="18sp"
+                        tools:ignore="TouchTargetSizeCheck" />
+
+                    <EditText
+                        android:id="@+id/edtWis"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="0.1"
+                        android:ems="10"
+                        android:inputType="number"
+                        android:text="10"
+                        android:textAlignment="center"
+                        android:textSize="18sp"
+                        tools:ignore="TouchTargetSizeCheck" />
+
+                    <EditText
+                        android:id="@+id/edtCha"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="0.1"
+                        android:ems="10"
+                        android:inputType="number"
+                        android:text="10"
+                        android:textAlignment="center"
+                        android:textSize="18sp"
+                        tools:ignore="TouchTargetSizeCheck" />
+                </TableRow>
+
+            </TableLayout>
+
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal">
-
-                <TextView
-                    android:id="@+id/txStatStr"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:padding="15dp"
-                    android:paddingStart="20dp"
-                    android:paddingTop="0dp"
-                    android:text="DEX\n10"
-                    android:textAlignment="center" />
-
-                <TextView
-                    android:id="@+id/txStatDex"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:padding="15dp"
-                    android:paddingTop="0dp"
-                    android:text="STR\n10"
-                    android:textAlignment="center" />
-
-                <TextView
-                    android:id="@+id/txStatCon"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:padding="15dp"
-                    android:paddingTop="0dp"
-                    android:text="CON\n10"
-                    android:textAlignment="center" />
-
-                <TextView
-                    android:id="@+id/txStatInt"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:padding="15dp"
-                    android:paddingTop="0dp"
-                    android:text="INT\n10"
-                    android:textAlignment="center" />
-
-                <TextView
-                    android:id="@+id/txStatWis"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:padding="15dp"
-                    android:paddingTop="0dp"
-                    android:text="WIS\n10"
-                    android:textAlignment="center" />
-
-                <TextView
-                    android:id="@+id/txStatCha"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:padding="15dp"
-                    android:paddingTop="0dp"
-                    android:paddingEnd="20dp"
-                    android:text="CHA\n10"
-                    android:textAlignment="center" />
 
             </LinearLayout>
 
@@ -199,126 +343,126 @@
 
             <CheckBox
                 android:id="@+id/cbAcrobatics"
-                android:layout_width="match_parent"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="25dp"
                 android:text="Actobatics (Dex + 3) +2" />
 
             <CheckBox
                 android:id="@+id/cbAnimalHandling"
-                android:layout_width="match_parent"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="25dp"
                 android:text="Animal Handling" />
 
             <CheckBox
                 android:id="@+id/cbArcana"
-                android:layout_width="match_parent"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="25dp"
                 android:text="Arcana" />
 
             <CheckBox
                 android:id="@+id/cbAthletics"
-                android:layout_width="match_parent"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="25dp"
                 android:text="Athletics" />
 
             <CheckBox
                 android:id="@+id/cbDeception"
-                android:layout_width="match_parent"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="25dp"
                 android:text="Deception" />
 
             <CheckBox
                 android:id="@+id/cbHistory"
-                android:layout_width="match_parent"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="25dp"
                 android:text="History" />
 
             <CheckBox
                 android:id="@+id/cbInsight"
-                android:layout_width="match_parent"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="25dp"
                 android:text="Insight" />
 
             <CheckBox
                 android:id="@+id/cbIntimidation"
-                android:layout_width="match_parent"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="25dp"
                 android:text="Intimidation" />
 
             <CheckBox
                 android:id="@+id/cbInvestigation"
-                android:layout_width="match_parent"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="25dp"
                 android:text="Investigation" />
 
             <CheckBox
                 android:id="@+id/cbMedicine"
-                android:layout_width="match_parent"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="25dp"
                 android:text="Medicine" />
 
             <CheckBox
                 android:id="@+id/cbNature"
-                android:layout_width="match_parent"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="25dp"
                 android:text="Nature" />
 
             <CheckBox
                 android:id="@+id/cbPerception"
-                android:layout_width="match_parent"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="25dp"
                 android:text="Perception" />
 
             <CheckBox
                 android:id="@+id/cbPerformance"
-                android:layout_width="match_parent"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="25dp"
                 android:text="Performance" />
 
             <CheckBox
                 android:id="@+id/cbPersuasion"
-                android:layout_width="match_parent"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="25dp"
                 android:text="Persuasion" />
 
             <CheckBox
                 android:id="@+id/cbReligion"
-                android:layout_width="match_parent"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="25dp"
                 android:text="Religion" />
 
             <CheckBox
                 android:id="@+id/cbSleightOfHand"
-                android:layout_width="match_parent"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="25dp"
                 android:text="Sleight of hand" />
 
             <CheckBox
                 android:id="@+id/cbStealth"
-                android:layout_width="match_parent"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="25dp"
                 android:text="Stealth" />
 
             <CheckBox
                 android:id="@+id/cbSurvival"
-                android:layout_width="match_parent"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="25dp"
                 android:text="Survival" />

@@ -64,7 +64,7 @@ public class MainActivity extends AppCompatActivity {
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item){
         int itemId = item.getItemId();
-        if(itemId == R.id.item_choose){
+        if(itemId == R.id.choose_this_item){
             fAuth.signOut();
             finish();
             startActivity(new Intent(MainActivity.this, LoginActivity.class));
@@ -101,16 +101,15 @@ public class MainActivity extends AppCompatActivity {
     public List<ListItem> getList(){
         List<ListItem> list = new ArrayList<>();
 
-        list.add(new ListItem("My Characters", R.drawable.d20));
-        list.add(new ListItem("Creatures", R.drawable.d20));
-        list.add(new ListItem("Spells", R.drawable.d20));
-        list.add(new ListItem("Background", R.drawable.d20));
-        list.add(new ListItem("Races", R.drawable.d20));
-        list.add(new ListItem("Classes", R.drawable.d20));
-        list.add(new ListItem("Magic items", R.drawable.d20));
-        list.add(new ListItem("Weapons", R.drawable.d20));
-        list.add(new ListItem("Armor", R.drawable.d20));
-
+        list.add(new ListItem("My Lists", R.drawable.baseline_format_list_bulleted_24));
+        list.add(new ListItem("Creatures", R.drawable.monster_icon));
+        list.add(new ListItem("Spells", R.drawable.spells_icon));
+        list.add(new ListItem("Background", R.drawable.backgrounds_icon));
+        list.add(new ListItem("Races", R.drawable.characters_icon));
+        list.add(new ListItem("Classes", R.drawable.classes_icon));
+        list.add(new ListItem("Magic items", R.drawable.magic_item));
+        list.add(new ListItem("Weapons", R.drawable.weapons_icon));
+        list.add(new ListItem("Armor", R.drawable.armor_icon));
         return list;
     }
 }

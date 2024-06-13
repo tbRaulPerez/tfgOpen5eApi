@@ -4,7 +4,9 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-public class CharacterClass {
+import java.util.ArrayList;
+
+public class CharacterClass extends SavableItem {
     private String name;
     private String desc;
     private String hitDice;
@@ -18,57 +20,61 @@ public class CharacterClass {
     private String equipment;
     private String table;
     private String spellcastingAbility;
-    private JSONArray archetypes ;
+    private String archetypesJsonArray;
     private String licenseURL;
     private String documentURL;
 
-    public CharacterClass(JSONObject objetoJson) {
-            try {
-                if(objetoJson.has("name") && !objetoJson.isNull("name")){
-                    this.name = objetoJson.getString("name");
-                }
-                if(objetoJson.has("desc") && !objetoJson.isNull("desc")){
-                    this.desc = objetoJson.getString("desc");
-                }
-                if(objetoJson.has("hit_dice") && !objetoJson.isNull("hit_dice")){
-                    this.hitDice = objetoJson.getString("hit_dice");
-                }
-                if(objetoJson.has("hp_at_1st_level") && !objetoJson.isNull("hp_at_1st_level")){
-                    this.hpAtLv1 = objetoJson.getString("hp_at_1st_level");
-                }
-                if(objetoJson.has("hp_at_higher_levels") && !objetoJson.isNull("hp_at_higher_levels")){
-                    this.hpAtHigherLvs = objetoJson.getString("hp_at_higher_levels");
-                }
-                if(objetoJson.has("prof_armor") && !objetoJson.isNull("prof_armor")){
-                    this.profArmor = objetoJson.getString("prof_armor");
-                }
-                if(objetoJson.has("prof_weapons") && !objetoJson.isNull("prof_weapons")){
-                    this.profWeapons = objetoJson.getString("prof_weapons");
-                }
-                if(objetoJson.has("prof_tools") && !objetoJson.isNull("prof_tools")){
-                    this.profTools = objetoJson.getString("prof_tools");
-                }
-                if(objetoJson.has("prof_saving_throws") && !objetoJson.isNull("prof_saving_throws")){
-                    this.profSavingThrows = objetoJson.getString("prof_saving_throws");
-                }
-                if(objetoJson.has("prof_skills") && !objetoJson.isNull("prof_skills")){
-                    this.profSkills = objetoJson.getString("prof_skills");
-                }
-                if(objetoJson.has("equipment") && !objetoJson.isNull("equipment")){
-                    this.equipment = objetoJson.getString("equipment");
-                }
-                if(objetoJson.has("table") && !objetoJson.isNull("table")){
-                    this.table = objetoJson.getString("table");
-                }
-                if(objetoJson.has("spellcasting_ability") && !objetoJson.isNull("spellcasting_ability")){
-                    this.spellcastingAbility = objetoJson.getString("spellcasting_ability");
-                }
-                if(objetoJson.has("archetypes") && !objetoJson.isNull("archetypes")){
-                    this.archetypes  = objetoJson.getJSONArray("archetypes");
-                }
-            } catch (JSONException e) {
-                throw new RuntimeException(e);
+    public CharacterClass() {
+    }
+
+    public CharacterClass(JSONObject objetoJson, ArrayList<String> owner) {
+        super(owner);
+        try {
+            if (objetoJson.has("name") && !objetoJson.isNull("name")) {
+                this.name = objetoJson.getString("name");
             }
+            if (objetoJson.has("desc") && !objetoJson.isNull("desc")) {
+                this.desc = objetoJson.getString("desc");
+            }
+            if (objetoJson.has("hit_dice") && !objetoJson.isNull("hit_dice")) {
+                this.hitDice = objetoJson.getString("hit_dice");
+            }
+            if (objetoJson.has("hp_at_1st_level") && !objetoJson.isNull("hp_at_1st_level")) {
+                this.hpAtLv1 = objetoJson.getString("hp_at_1st_level");
+            }
+            if (objetoJson.has("hp_at_higher_levels") && !objetoJson.isNull("hp_at_higher_levels")) {
+                this.hpAtHigherLvs = objetoJson.getString("hp_at_higher_levels");
+            }
+            if (objetoJson.has("prof_armor") && !objetoJson.isNull("prof_armor")) {
+                this.profArmor = objetoJson.getString("prof_armor");
+            }
+            if (objetoJson.has("prof_weapons") && !objetoJson.isNull("prof_weapons")) {
+                this.profWeapons = objetoJson.getString("prof_weapons");
+            }
+            if (objetoJson.has("prof_tools") && !objetoJson.isNull("prof_tools")) {
+                this.profTools = objetoJson.getString("prof_tools");
+            }
+            if (objetoJson.has("prof_saving_throws") && !objetoJson.isNull("prof_saving_throws")) {
+                this.profSavingThrows = objetoJson.getString("prof_saving_throws");
+            }
+            if (objetoJson.has("prof_skills") && !objetoJson.isNull("prof_skills")) {
+                this.profSkills = objetoJson.getString("prof_skills");
+            }
+            if (objetoJson.has("equipment") && !objetoJson.isNull("equipment")) {
+                this.equipment = objetoJson.getString("equipment");
+            }
+            if (objetoJson.has("table") && !objetoJson.isNull("table")) {
+                this.table = objetoJson.getString("table");
+            }
+            if (objetoJson.has("spellcasting_ability") && !objetoJson.isNull("spellcasting_ability")) {
+                this.spellcastingAbility = objetoJson.getString("spellcasting_ability");
+            }
+            if (objetoJson.has("archetypes") && !objetoJson.isNull("archetypes")) {
+                this.archetypesJsonArray = objetoJson.getString("archetypes");
+            }
+        } catch (JSONException e) {
+            throw new RuntimeException(e);
+        }
 
     }
 
@@ -176,12 +182,12 @@ public class CharacterClass {
         this.spellcastingAbility = spellcastingAbility;
     }
 
-    public JSONArray getArchetypes() {
-        return archetypes;
+    public String getArchetypesJsonArray() {
+        return archetypesJsonArray;
     }
 
-    public void setArchetypes(JSONArray archetypes) {
-        this.archetypes = archetypes;
+    public void setArchetypesJsonArray(String archetypesJsonArray) {
+        this.archetypesJsonArray = archetypesJsonArray;
     }
 
     public String getLicenseURL() {

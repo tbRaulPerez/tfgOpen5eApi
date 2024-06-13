@@ -3,7 +3,9 @@ package com.example.tfg.model;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-public class Background {
+import java.util.ArrayList;
+
+public class Background  extends SavableItem{
     private String name;
     private String desc;
     private String skillProficiencies;
@@ -15,7 +17,11 @@ public class Background {
     private String licenseURL;
     private String documentURL;
 
-    public Background(JSONObject objetoJSON) {
+    public Background() {
+    }
+
+    public Background(JSONObject objetoJSON, ArrayList<String> owner) {
+        super(owner);
         try {
             this.name = objetoJSON.getString("name");
             if(objetoJSON.has("desc") && !objetoJSON.isNull("desc")){

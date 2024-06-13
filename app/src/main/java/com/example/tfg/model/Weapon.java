@@ -4,17 +4,23 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-public class Weapon {
+import java.util.ArrayList;
+
+public class Weapon extends SavableItem{
     private String name;
     private String category;
     private String cost;
     private String dmgDice;
     private String dmgType;
-    private String[] properties;
+    private ArrayList<String> properties;
     private String licenseURL;
     private String documentURL;
 
-    public Weapon(JSONObject objetoJson) {
+    public Weapon() {
+    }
+
+    public Weapon(JSONObject objetoJson, ArrayList<String> owner) {
+        super(owner);
         try {
             if (objetoJson.has("name") && !objetoJson.isNull("name")) {
                 this.name = objetoJson.getString("name");
@@ -33,9 +39,9 @@ public class Weapon {
             }
             if (objetoJson.has("properties") && !objetoJson.isNull("properties")) {
                 JSONArray arrJson = objetoJson.getJSONArray("properties");
-                this.properties = new String[arrJson.length()];
+                this.properties = new ArrayList<String>();
                 for (int i = 0; i < arrJson.length(); i++)
-                    this.properties[i] = arrJson.getString(i);
+                    this.properties.add(arrJson.getString(i));
             }
             if (objetoJson.has("document__license_url") && !objetoJson.isNull("document__license_url")) {
                 this.licenseURL = objetoJson.getString("document__license_url");
@@ -48,16 +54,6 @@ public class Weapon {
         }
     }
 
-    public Weapon(String name, String category, String cost, String dmgDice, String dmgType, String[] properties, String licenseURL, String documentURL) {
-        this.name = name;
-        this.category = category;
-        this.cost = cost;
-        this.dmgDice = dmgDice;
-        this.dmgType = dmgType;
-        this.properties = properties;
-        this.licenseURL = licenseURL;
-        this.documentURL = documentURL;
-    }
 
     public String getName() {
         return name;
@@ -99,11 +95,11 @@ public class Weapon {
         this.dmgType = dmgType;
     }
 
-    public String[] getProperties() {
+    public ArrayList<String> getProperties() {
         return properties;
     }
 
-    public void setProperties(String[] properties) {
+    public void setProperties(ArrayList<String> properties) {
         this.properties = properties;
     }
 

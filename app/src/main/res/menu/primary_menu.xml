@@ -3,6 +3,6 @@
     xmlns:android="http://schemas.android.com/apk/res/android">
 
     <item
-        android:id="@+id/item_choose"
+        android:id="@+id/choose_this_item"
         android:title="Log Out" />
 </menu>

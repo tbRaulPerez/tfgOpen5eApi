@@ -2,29 +2,49 @@ package com.example.tfg.controller;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBar;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.tfg.R;
 import com.example.tfg.model.Background;
+import com.example.tfg.model.Creature;
+import com.example.tfg.model.Race;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+
 public class BackgroundItemActivity extends AppCompatActivity {
-    private TextView txName,txDescription, txProficienciesLanguagesEquipment, lbFeature, txFeature, txLicensing;
+    private TextView txName,txDescription, txProficienciesLanguagesEquipment, lbFeature, txFeature, txLicensing,lbLicense;
     private JSONObject objetoJSON;
     private Background background;
     private Toolbar toolbar;
     private String title;
     private boolean isCharacterCreation;
     private String chosenRaceString;
+    private FirebaseDatabase firebaseDatabase;
+    private DatabaseReference databaseReference;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -36,6 +56,7 @@ public class BackgroundItemActivity extends AppCompatActivity {
         lbFeature = findViewById(R.id.lbFeature);
         txFeature = findViewById(R.id.txFeature);
         txLicensing = findViewById(R.id.txLicense2);
+        lbLicense = findViewById(R.id.lbLicesing2);
 
         toolbar = findViewById(R.id.toolbar4);
         setSupportActionBar(toolbar);
@@ -50,10 +71,19 @@ public class BackgroundItemActivity extends AppCompatActivity {
             }
             actionBar.setDisplayHomeAsUpEnabled(true);
         }
+        String jsonObjectExtra = getIntent().getStringExtra("OBJETOJSON");
+        if(jsonObjectExtra != null && !jsonObjectExtra.equals("")){
+            try {
+                objetoJSON = new JSONObject(getIntent().getStringExtra("OBJETOJSON"));
+                background = new Background(objetoJSON, new ArrayList<>());
 
-        try {
-            objetoJSON = new JSONObject(getIntent().getStringExtra("OBJETOJSON"));
-            background = new Background(objetoJSON);
+            } catch (JSONException e) {
+                throw new RuntimeException(e);
+            }
+        }else if(getIntent().getSerializableExtra("OBJECTFROMFIREBASE")!=null){
+            background = (Background) getIntent().getSerializableExtra("OBJECTFROMFIREBASE");
+        }
+
 
             txName.setText(background.getName().toUpperCase());
             //Description
@@ -81,9 +111,19 @@ public class BackgroundItemActivity extends AppCompatActivity {
             if(background.getFeatureDesc() != null && !background.getFeatureDesc().equals("")){
                 txFeature.append(background.getFeatureDesc() + "\n");
             }
-        } catch (JSONException e) {
-            throw new RuntimeException(e);
-        }
+
+            txLicensing.setText("");
+            if (background.getLicenseURL() != null && !background.getLicenseURL().equals("")) {
+                lbLicense.setVisibility(View.VISIBLE);
+                txLicensing.setVisibility(View.VISIBLE);
+                txLicensing.append("License URL: " + background.getLicenseURL());
+            }
+            if (background.getDocumentURL() != null && !background.getDocumentURL().equals("")) {
+                lbLicense.setVisibility(View.VISIBLE);
+                txLicensing.setVisibility(View.VISIBLE);
+                txLicensing.append("\nDocument URL: " + background.getDocumentURL());
+            }
+
         
         isCharacterCreation = getIntent().getBooleanExtra("ISCHARACTERCREATION", false);
         if(isCharacterCreation){
@@ -95,6 +135,10 @@ public class BackgroundItemActivity extends AppCompatActivity {
     public boolean onCreateOptionsMenu(Menu menu) {
         if(title != null){
             getMenuInflater().inflate(R.menu.creating_character_menu, menu);
+        }else if(background.getOwner().contains(FirebaseAuth.getInstance().getCurrentUser().getEmail())){
+            getMenuInflater().inflate(R.menu.saved_item_menu, menu);
+        }else {
+            getMenuInflater().inflate(R.menu.detail_item_menu, menu);
         }
         return true;
     }
@@ -104,7 +148,9 @@ public class BackgroundItemActivity extends AppCompatActivity {
         if (item.getItemId() == android.R.id.home) {
             onBackPressed();
             return true;
-        } else if(item.getItemId() == R.id.item_choose){
+        } else if (item.getItemId() == R.id.save_item) {
+            saveData(background);
+        } else if(item.getItemId() == R.id.choose_this_item){
             Intent intent = new Intent(this,ApiListActivity.class);
             intent.putExtra("URL", "/classes/");
             intent.putExtra("TITLE", "Choose a class");
@@ -114,7 +160,85 @@ public class BackgroundItemActivity extends AppCompatActivity {
             intent.addFlags(Intent.FLAG_ACTIVITY_NO_HISTORY);
             this.startActivity(intent);
             return true;
+        }else if(item.getItemId() == R.id.btDeleteSavedItemMenu){
+            new AlertDialog.Builder(this).setTitle("Are you sure that you want to delete this character. This is permanent").setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialog, int which) {
+                    if(background.getOwner().contains(FirebaseAuth.getInstance().getCurrentUser().getEmail())){
+                        background.getOwner().remove(FirebaseAuth.getInstance().getCurrentUser().getEmail());
+                        // below line is used to get the
+                        // instance of our FIrebase database.
+                        FirebaseDatabase firebaseDatabase = FirebaseDatabase.getInstance();
+                        // below line is used to get reference for our database.
+                        DatabaseReference databaseReference = firebaseDatabase.getReference().child("dndProject").child("backgrounds").child(background.getName());
+                        databaseReference.setValue(background);
+                        if(background.getOwner().isEmpty()){
+                            databaseReference.removeValue().addOnSuccessListener(new OnSuccessListener<Void>() {
+                                @Override
+                                public void onSuccess(Void unused) {
+                                    Toast.makeText(BackgroundItemActivity.this, "Your background was deleted", Toast.LENGTH_LONG).show();
+                                }
+                            }).addOnFailureListener(new OnFailureListener() {
+                                @Override
+                                public void onFailure(@NonNull Exception e) {
+                                    Toast.makeText(BackgroundItemActivity.this, "Data deletion failed" + e, Toast.LENGTH_SHORT).show();
+                                }
+                            });
+                        }
+                        BackgroundItemActivity.this.finish();
+                    }
+                }
+            }).setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialog, int which) {
+
+                }
+            }).show();
+            return true;
         }
         return super.onOptionsItemSelected(item);
+    }
+    private void saveData(Background background) {
+        // below line is used to get the
+        // instance of our FIrebase database.
+        firebaseDatabase = FirebaseDatabase.getInstance();
+
+        // below line is used to get reference for our database.
+        databaseReference = firebaseDatabase.getReference().child("dndProject").child("backgrounds").child(background.getName());
+
+        databaseReference.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                Background existentBackground = snapshot.getValue(Background.class);
+                if(existentBackground != null){
+                    if(existentBackground.getOwner().contains(FirebaseAuth.getInstance().getCurrentUser().getEmail())){
+                        Toast.makeText(BackgroundItemActivity.this, "You have already saved this item", Toast.LENGTH_SHORT).show();
+                    }else {
+                        existentBackground.getOwner().add(FirebaseAuth.getInstance().getCurrentUser().getEmail());
+                        save(existentBackground);
+                    }
+                }else{
+                    background.getOwner().add(FirebaseAuth.getInstance().getCurrentUser().getEmail());
+                    save(background);
+                }
+            }
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+                System.out.println("The read failed: " + error.getCode());
+            }
+        });
+    }
+    private void save(Background background){
+        databaseReference.setValue(background).addOnSuccessListener(new OnSuccessListener<Void>() {
+            @Override
+            public void onSuccess(Void unused) {
+                Toast.makeText(BackgroundItemActivity.this, "Added to your personal list!", Toast.LENGTH_SHORT).show();
+            }
+        }).addOnFailureListener(new OnFailureListener() {
+            @Override
+            public void onFailure(@NonNull Exception e) {
+                Toast.makeText(BackgroundItemActivity.this, "Failed to save data " + e, Toast.LENGTH_SHORT).show();
+            }
+        });
     }
 }

@@ -3,7 +3,9 @@ package com.example.tfg.model;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-public class Armor {
+import java.util.ArrayList;
+
+public class Armor extends SavableItem{
     private String name;
     private String category;
     private String acString;
@@ -13,7 +15,11 @@ public class Armor {
     private String licenseURL;
     private String documentURL;
 
-    public Armor(JSONObject objetoJson) {
+    public Armor() {
+    }
+
+    public Armor(JSONObject objetoJson, ArrayList<String> owner) {
+        super(owner);
         try {
             if (objetoJson.has("name") && !objetoJson.isNull("name")) {
                 this.name = objetoJson.getString("name");

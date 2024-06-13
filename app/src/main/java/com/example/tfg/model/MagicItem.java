@@ -3,7 +3,9 @@ package com.example.tfg.model;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-public class MagicItem {
+import java.util.ArrayList;
+
+public class MagicItem extends SavableItem{
     private String name;
     private String type;
     private String desc;
@@ -12,7 +14,11 @@ public class MagicItem {
     private String licenseURL;
     private String documentURL;
 
-    public MagicItem(JSONObject objetoJson) {
+    public MagicItem() {
+    }
+
+    public MagicItem(JSONObject objetoJson, ArrayList<String> owner) {
+        super(owner);
             try {
                 if(objetoJson.has("name") && !objetoJson.isNull("name")){
                     this.name = objetoJson.getString("name");

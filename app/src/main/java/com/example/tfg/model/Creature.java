@@ -1,11 +1,13 @@
 package com.example.tfg.model;
+
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 
-public class Creature{
+public class Creature extends SavableItem{
     private String name;
     private String desc;
     private String size;
@@ -13,56 +15,60 @@ public class Creature{
     private String alignment;
     private int armorClass;
     private int hitPoints;
-    private JSONObject speed;
+    private String speedJsonObject;
     private int strength;
     private int dexterity;
     private int constitution;
     private int intelligence;
     private int wisdom;
     private int charisma;
-    private JSONObject skills;
+    private String skillsJsonObject;
     private String vulnerabilities;
     private String resistances;
     private String inmunities;
     private String senses;
     private String challengeRating;
     private String languages;
-    private JSONArray actions;
-    private JSONArray bonusActions;
-    private JSONArray reactions;
+    private String actionsJsonArray;
+    private String bonusActionsJsonArray;
+    private String reactionsJsonArray;
     private String legendaryDesc;
-    private JSONArray legendaryActions;
-    private JSONArray specialAbilities;
+    private String legendaryActionsJsonArray;
+    private String specialAbilitiesJsonArray;
     private String licenseURL;
     private String documentURL;
 
-    public Creature(JSONObject objetoJSON) {
+    public Creature() {
+    }
+
+    public Creature(JSONObject objetoJSON, ArrayList<String> owner) {
+        super(owner);
         try {
             this.name = objetoJSON.getString("name");
-            if(objetoJSON.has("desc") && !objetoJSON.isNull("desc")){
+            if (objetoJSON.has("desc") && !objetoJSON.isNull("desc")) {
                 this.desc = objetoJSON.getString("desc");
             }
-                if(objetoJSON.has("size") && !objetoJSON.isNull("size")){
+            if (objetoJSON.has("size") && !objetoJSON.isNull("size")) {
                 this.size = objetoJSON.getString("size");
             }
-            if(objetoJSON.has("type") && !objetoJSON.isNull("type")){
+            if (objetoJSON.has("type") && !objetoJSON.isNull("type")) {
                 this.type = objetoJSON.getString("type");
             }
-            if(objetoJSON.has("alignment") && !objetoJSON.isNull("alignment")){
+            if (objetoJSON.has("alignment") && !objetoJSON.isNull("alignment")) {
                 this.alignment = objetoJSON.getString("alignment");
             }
-            if(objetoJSON.has("armor_class") && !objetoJSON.isNull("armor_class")){
+            if (objetoJSON.has("armor_class") && !objetoJSON.isNull("armor_class")) {
                 this.armorClass = objetoJSON.getInt("armor_class");
-            }else this.armorClass = 0;
-            if(objetoJSON.has("hit_points") && !objetoJSON.isNull("hit_points")){
+            } else this.armorClass = 0;
+            if (objetoJSON.has("hit_points") && !objetoJSON.isNull("hit_points")) {
                 this.hitPoints = objetoJSON.getInt("hit_points");
-            }else this.hitPoints = 0;
-            if(objetoJSON.has("speed") && !objetoJSON.isNull("speed")){
-                this.speed = objetoJSON.getJSONObject("speed");
-            } else{
-                this.speed = new JSONObject("\"speed\": {\n" +
+            } else this.hitPoints = 0;
+            if (objetoJSON.has("speed") && !objetoJSON.isNull("speed")) {
+                this.speedJsonObject = objetoJSON.getString("speed");
+            } else {
+                this.speedJsonObject = "\"speed\": {\n" +
                         "                \"walk\": 30,\n" +
-                        "            }");
+                        "            }";
             }
             this.strength = objetoJSON.getInt("strength");
             this.dexterity = objetoJSON.getInt("dexterity");
@@ -70,40 +76,40 @@ public class Creature{
             this.intelligence = objetoJSON.getInt("intelligence");
             this.wisdom = objetoJSON.getInt("wisdom");
             this.charisma = objetoJSON.getInt("charisma");
-            if(objetoJSON.has("skills") && !objetoJSON.isNull("skills")){
-                this.skills = objetoJSON.getJSONObject("skills");
-            } else this.skills = new JSONObject("");
-            if(objetoJSON.has("senses") && !objetoJSON.isNull("senses")){
+            if (objetoJSON.has("skills") && !objetoJSON.isNull("skills")) {
+                this.skillsJsonObject = objetoJSON.getString("skills");
+            } else this.skillsJsonObject = "";
+            if (objetoJSON.has("senses") && !objetoJSON.isNull("senses")) {
                 this.senses = objetoJSON.getString("senses");
             }
-            if(objetoJSON.has("challenge_rating") && !objetoJSON.isNull("challenge_rating")){
+            if (objetoJSON.has("challenge_rating") && !objetoJSON.isNull("challenge_rating")) {
                 this.challengeRating = objetoJSON.getString("challenge_rating");
             }
-            if(objetoJSON.has("languages") && !objetoJSON.isNull("languages")){
+            if (objetoJSON.has("languages") && !objetoJSON.isNull("languages")) {
                 this.languages = objetoJSON.getString("languages");
             }
-            if(objetoJSON.has("actions") && !objetoJSON.isNull("actions")){
-                this.actions = objetoJSON.getJSONArray("actions");
+            if (objetoJSON.has("actions") && !objetoJSON.isNull("actions")) {
+                this.actionsJsonArray = objetoJSON.getString("actions");
             }
-            if(objetoJSON.has("bonus_actions") && !objetoJSON.isNull("bonus_actions")){
-                this.bonusActions = objetoJSON.getJSONArray("bonus_actions");
+            if (objetoJSON.has("bonus_actions") && !objetoJSON.isNull("bonus_actions")) {
+                this.bonusActionsJsonArray = objetoJSON.getString("bonus_actions");
             }
-            if(objetoJSON.has("reactions") && !objetoJSON.isNull("reactions")){
-                this.reactions = objetoJSON.getJSONArray("reactions");
+            if (objetoJSON.has("reactions") && !objetoJSON.isNull("reactions")) {
+                this.bonusActionsJsonArray = objetoJSON.getString("reactions");
             }
-            if(objetoJSON.has("legendary_desc") && !objetoJSON.isNull("legendary_desc")){
+            if (objetoJSON.has("legendary_desc") && !objetoJSON.isNull("legendary_desc")) {
                 this.legendaryDesc = objetoJSON.getString("legendary_desc");
             } else this.legendaryDesc = "";
-            if(objetoJSON.has("legendary_actions") && !objetoJSON.isNull("legendary_actions")){
-                this.legendaryActions = objetoJSON.getJSONArray("legendary_actions");
+            if (objetoJSON.has("legendary_actions") && !objetoJSON.isNull("legendary_actions")) {
+                this.legendaryActionsJsonArray = objetoJSON.getString("legendary_actions");
             }
-            if(objetoJSON.has("special_abilities") && !objetoJSON.isNull("special_abilities")){
-                this.specialAbilities = objetoJSON.getJSONArray("special_abilities");
+            if (objetoJSON.has("special_abilities") && !objetoJSON.isNull("special_abilities")) {
+                this.specialAbilitiesJsonArray = objetoJSON.getString("special_abilities");
             }
-            if(objetoJSON.has("document__license_url") && !objetoJSON.isNull("document__license_url")){
+            if (objetoJSON.has("document__license_url") && !objetoJSON.isNull("document__license_url")) {
                 this.licenseURL = objetoJSON.getString("document__license_url");
             }
-            if(objetoJSON.has("document__url") && !objetoJSON.isNull("document__url")){
+            if (objetoJSON.has("document__url") && !objetoJSON.isNull("document__url")) {
                 this.documentURL = objetoJSON.getString("document__url");
             }
         } catch (JSONException e) {
@@ -167,14 +173,6 @@ public class Creature{
         this.hitPoints = hitPoints;
     }
 
-    public JSONObject getSpeed() {
-        return speed;
-    }
-
-    public void setSpeed(JSONObject speed) {
-        this.speed = speed;
-    }
-
     public int getStrength() {
         return strength;
     }
@@ -221,14 +219,6 @@ public class Creature{
 
     public void setCharisma(int charisma) {
         this.charisma = charisma;
-    }
-
-    public JSONObject getSkills() {
-        return skills;
-    }
-
-    public void setSkills(JSONObject skills) {
-        this.skills = skills;
     }
 
     public String getVulnerabilities() {
@@ -279,28 +269,44 @@ public class Creature{
         this.languages = languages;
     }
 
-    public JSONArray getActions() {
-        return actions;
+    public String getSpeedJsonObject() {
+        return speedJsonObject;
     }
 
-    public void setActions(JSONArray actions) {
-        this.actions = actions;
+    public void setSpeedJsonObject(String speedJsonObject) {
+        this.speedJsonObject = speedJsonObject;
     }
 
-    public JSONArray getBonusActions() {
-        return bonusActions;
+    public String getSkillsJsonObject() {
+        return skillsJsonObject;
     }
 
-    public void setBonusActions(JSONArray bonusActions) {
-        this.bonusActions = bonusActions;
+    public void setSkillsJsonObject(String skillsJsonObject) {
+        this.skillsJsonObject = skillsJsonObject;
     }
 
-    public JSONArray getReactions() {
-        return reactions;
+    public String getActionsJsonArray() {
+        return actionsJsonArray;
     }
 
-    public void setReactions(JSONArray reactions) {
-        this.reactions = reactions;
+    public void setActionsJsonArray(String actionsJsonArray) {
+        this.actionsJsonArray = actionsJsonArray;
+    }
+
+    public String getBonusActionsJsonArray() {
+        return bonusActionsJsonArray;
+    }
+
+    public void setBonusActionsJsonArray(String bonusActionsJsonArray) {
+        this.bonusActionsJsonArray = bonusActionsJsonArray;
+    }
+
+    public String getReactionsJsonArray() {
+        return reactionsJsonArray;
+    }
+
+    public void setReactionsJsonArray(String reactionsJsonArray) {
+        this.reactionsJsonArray = reactionsJsonArray;
     }
 
     public String getLegendaryDesc() {
@@ -311,20 +317,20 @@ public class Creature{
         this.legendaryDesc = legendaryDesc;
     }
 
-    public JSONArray getLegendaryActions() {
-        return legendaryActions;
+    public String getLegendaryActionsJsonArray() {
+        return legendaryActionsJsonArray;
     }
 
-    public void setLegendaryActions(JSONArray legendaryActions) {
-        this.legendaryActions = legendaryActions;
+    public void setLegendaryActionsJsonArray(String legendaryActionsJsonArray) {
+        this.legendaryActionsJsonArray = legendaryActionsJsonArray;
     }
 
-    public JSONArray getSpecialAbilities() {
-        return specialAbilities;
+    public String getSpecialAbilitiesJsonArray() {
+        return specialAbilitiesJsonArray;
     }
 
-    public void setSpecialAbilities(JSONArray specialAbilities) {
-        this.specialAbilities = specialAbilities;
+    public void setSpecialAbilitiesJsonArray(String specialAbilitiesJsonArray) {
+        this.specialAbilitiesJsonArray = specialAbilitiesJsonArray;
     }
 
     public String getLicenseURL() {
@@ -341,5 +347,41 @@ public class Creature{
 
     public void setDocumentURL(String documentURL) {
         this.documentURL = documentURL;
+    }
+
+    @Override
+    public String toString() {
+        return "Creature{" +
+                "owner='" + getOwner() + '\'' +
+                ", name='" + name + '\'' +
+                ", desc='" + desc + '\'' +
+                ", size='" + size + '\'' +
+                ", type='" + type + '\'' +
+                ", alignment='" + alignment + '\'' +
+                ", armorClass=" + armorClass +
+                ", hitPoints=" + hitPoints +
+                ", speedJsonObject='" + speedJsonObject + '\'' +
+                ", strength=" + strength +
+                ", dexterity=" + dexterity +
+                ", constitution=" + constitution +
+                ", intelligence=" + intelligence +
+                ", wisdom=" + wisdom +
+                ", charisma=" + charisma +
+                ", skillsJsonObject='" + skillsJsonObject + '\'' +
+                ", vulnerabilities='" + vulnerabilities + '\'' +
+                ", resistances='" + resistances + '\'' +
+                ", inmunities='" + inmunities + '\'' +
+                ", senses='" + senses + '\'' +
+                ", challengeRating='" + challengeRating + '\'' +
+                ", languages='" + languages + '\'' +
+                ", actionsJsonArray='" + actionsJsonArray + '\'' +
+                ", bonusActionsJsonArray='" + bonusActionsJsonArray + '\'' +
+                ", reactionsJsonArray='" + reactionsJsonArray + '\'' +
+                ", legendaryDesc='" + legendaryDesc + '\'' +
+                ", legendaryActionsJsonArray='" + legendaryActionsJsonArray + '\'' +
+                ", specialAbilitiesJsonArray='" + specialAbilitiesJsonArray + '\'' +
+                ", licenseURL='" + licenseURL + '\'' +
+                ", documentURL='" + documentURL + '\'' +
+                '}';
     }
 }

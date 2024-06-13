@@ -12,8 +12,8 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.tfg.R;
 import com.example.tfg.controller.ApiListActivity;
-import com.example.tfg.controller.CharacterActivity;
-import com.example.tfg.controller.CharactersListActivity;
+import com.example.tfg.controller.SavedItemsActivity;
+import com.example.tfg.controller.MyListsActivity;
 import com.example.tfg.model.ListItem;
 
 import java.util.List;
@@ -41,15 +41,20 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.Recycl
     public void onBindViewHolder(@NonNull RecyclerHolder holder, int position) {
         ListItem li = lista.get(position);
         holder.title.setText(li.getTitle());
-        holder.img.setImageResource(li.getImgId());
+        if(li.getImgId()!=0){
+            holder.img.setImageResource(li.getImgId());
+        }else {
+            holder.img.setImageResource(R.drawable.baseline_format_list_bulleted_24);
+        }
+
         //Un OnClickListener comprobará que objeto de la lista fue tocado,
         //y lanzará su actividad correspondiente
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 switch (holder.title.getText().toString()){
-                    case "My Characters":
-                        startListItemActivity(holder, CharactersListActivity.class);
+                    case "My Lists":
+                        startListItemActivity(holder, MyListsActivity.class);
                         break;
                     case "Creatures":
                         startListItemActivity(holder, ApiListActivity.class, "/monsters/");
@@ -75,10 +80,38 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.Recycl
                     case "Armor":
                         startListItemActivity(holder, ApiListActivity.class, "/armor/");
                         break;
+                    case "My Characters":
+                        startFirebaseListItemActivity(holder, SavedItemsActivity.class, "characters");
+                        break;
+                    case "My Creatures":
+                        startFirebaseListItemActivity(holder, SavedItemsActivity.class, "creatures");
+                        break;
+                    case"My Spells":
+                        startFirebaseListItemActivity(holder, SavedItemsActivity.class,"spells");
+                        break;
+                    case"My Backgrounds":
+                        startFirebaseListItemActivity(holder, SavedItemsActivity.class,"backgrounds");
+                        break;
+                    case"My Races":
+                        startFirebaseListItemActivity(holder, SavedItemsActivity.class,"races");
+                        break;
+                    case"My Classes":
+                        startFirebaseListItemActivity(holder, SavedItemsActivity.class,"classes");
+                        break;
+                    case"My Magic items":
+                        startFirebaseListItemActivity(holder, SavedItemsActivity.class,"magic items");
+                        break;
+                    case"My Weapons":
+                        startFirebaseListItemActivity(holder, SavedItemsActivity.class,"weapons");
+                        break;
+                    case"My Armors":
+                        startFirebaseListItemActivity(holder, SavedItemsActivity.class,"armors");
+                        break;
                 }
             }
         });
     }
+
     //devuelve el tamaño de la lista
     @Override
     public int getItemCount() {
@@ -96,6 +129,11 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.Recycl
     public void startListItemActivity(RecyclerHolder holder, Class activityClass, String url){
         Intent intent = new Intent(holder.itemView.getContext(), activityClass);
         intent.putExtra("URL", url);
+        holder.itemView.getContext().startActivity(intent);
+    }
+    private void startFirebaseListItemActivity(RecyclerHolder holder, Class<SavedItemsActivity> activityClass, String type) {
+        Intent intent = new Intent(holder.itemView.getContext(), activityClass);
+        intent.putExtra("TYPE", type);
         holder.itemView.getContext().startActivity(intent);
     }
 

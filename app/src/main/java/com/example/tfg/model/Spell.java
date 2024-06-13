@@ -3,7 +3,9 @@ package com.example.tfg.model;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-public class Spell {
+import java.util.ArrayList;
+
+public class Spell extends SavableItem{
     private String name;
     private String desc;
     private String higherLevel;
@@ -20,7 +22,11 @@ public class Spell {
     private String licenseURL;
     private String documentURL;
 
-    public Spell(JSONObject objetoJSON) {
+    public Spell() {
+    }
+
+    public Spell(JSONObject objetoJSON, ArrayList<String> owner) {
+        super(owner);
         try {
             this.name = objetoJSON.getString("name");
             if(objetoJSON.has("desc") && !objetoJSON.isNull("desc")){

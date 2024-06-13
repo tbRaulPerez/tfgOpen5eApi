@@ -1,26 +1,30 @@
 package com.example.tfg.model;
 
-import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 
-public class Race implements Serializable {
+public class Race extends SavableItem {
     private String name;
     private String desc;
     private String asi_desc;
     private String age;
     private String size;
-    private JSONObject speed;
+    private String speedJsonObject;
     private String languages;
     private String vision;
     private String traits;
-    private JSONArray subraces;
+    private String subracesJsonArray;
     private String document__license_url;
     private String document__url;
 
-    public Race(JSONObject objetoJson) {
+    public Race() {
+    }
+
+    public Race(JSONObject objetoJson, ArrayList<String> owner) {
+        super(owner);
         try {
             if (objetoJson.has("name") && !objetoJson.isNull("name")) {
                 this.name = objetoJson.getString("name");
@@ -38,11 +42,11 @@ public class Race implements Serializable {
                 this.size = objetoJson.getString("size");
             }
             if (objetoJson.has("speed") && !objetoJson.isNull("speed")) {
-                this.speed = objetoJson.getJSONObject("speed");
+                this.speedJsonObject = objetoJson.getString("speed");
             } else {
-                this.speed = new JSONObject("\"speed\": {\n" +
-                        "                \"walk\": 30,\n" +
-                        "            }");
+                this.speedJsonObject = "\"speed\": {\n" +
+                        "                \"wak\": 30,\n" +
+                        "            }";
             }
             if (objetoJson.has("languages") && !objetoJson.isNull("languages")) {
                 this.languages = objetoJson.getString("languages");
@@ -54,7 +58,7 @@ public class Race implements Serializable {
                 this.traits = objetoJson.getString("traits");
             }
             if (objetoJson.has("subraces") && !objetoJson.isNull("subraces")) {
-                this.subraces = objetoJson.getJSONArray("subraces");
+                this.subracesJsonArray = objetoJson.getString("subraces");
             }
             if (objetoJson.has("document__license_url") && !objetoJson.isNull("document__license_url")) {
                 this.document__license_url = objetoJson.getString("document__license_url");
@@ -107,12 +111,12 @@ public class Race implements Serializable {
         this.size = size;
     }
 
-    public JSONObject getSpeed() {
-        return speed;
+    public String getSpeedJsonObject() {
+        return speedJsonObject;
     }
 
-    public void setSpeed(JSONObject speed) {
-        this.speed = speed;
+    public void setSpeedJsonObject(String speedJsonObject) {
+        this.speedJsonObject = speedJsonObject;
     }
 
     public String getLanguages() {
@@ -139,12 +143,12 @@ public class Race implements Serializable {
         this.traits = traits;
     }
 
-    public JSONArray getSubraces() {
-        return subraces;
+    public String getSubracesJsonArray() {
+        return subracesJsonArray;
     }
 
-    public void setSubraces(JSONArray subraces) {
-        this.subraces = subraces;
+    public void setSubracesJsonArray(String subracesJsonArray) {
+        this.subracesJsonArray = subracesJsonArray;
     }
 
     public String getDocument__license_url() {
