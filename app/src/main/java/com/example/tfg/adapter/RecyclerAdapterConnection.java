@@ -1,6 +1,5 @@
 package com.example.tfg.adapter;
 
-import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.view.LayoutInflater;
@@ -20,8 +19,6 @@ import com.example.tfg.controller.MagicItemActivity;
 import com.example.tfg.controller.RaceActivity;
 import com.example.tfg.controller.SpellActivity;
 import com.example.tfg.controller.WeaponActivity;
-import com.example.tfg.model.Armor;
-import com.example.tfg.model.CharacterClass;
 
 import org.json.JSONArray;
 import org.json.JSONException;

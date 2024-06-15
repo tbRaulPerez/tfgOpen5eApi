@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">tfg</string>
+    <string name="app_name">Quick DnD Reference</string>
     <string name="title_activity_backgrounds">BackgroundsActivity</string>
     <!-- Strings used for fragments for navigation -->
     <string name="first_fragment_label">First Fragment</string>
