@@ -149,8 +149,6 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.Recycl
 
             img = (ImageView) itemView.findViewById(R.id.imgItem);
             title = (TextView) itemView.findViewById(R.id.txItemTitle);
-
-
         }
     }
 }
