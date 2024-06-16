@@ -5,4 +5,7 @@
     <item
         android:id="@+id/choose_this_item"
         android:title="Log Out" />
+    <item
+        android:id="@+id/btItemMenuLicense"
+        android:title="About License" />
 </menu>

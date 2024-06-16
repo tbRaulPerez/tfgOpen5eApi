@@ -68,6 +68,8 @@ public class MainActivity extends AppCompatActivity {
             fAuth.signOut();
             finish();
             startActivity(new Intent(MainActivity.this, LoginActivity.class));
+        } else if(itemId == R.id.btItemMenuLicense){
+            startActivity(new Intent(MainActivity.this, AboutLicenseActivity.class));
         }
         return true;
     }
