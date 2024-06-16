@@ -38,7 +38,7 @@ import com.google.firebase.database.ValueEventListener;
 import java.util.ArrayList;
 import java.util.List;
 
-public class SavedItemsActivity extends AppCompatActivity {
+public class SavedItemsListActivity extends AppCompatActivity {
     Toolbar toolbar;
     RecyclerView rvCharacterList;
     RecyclerAdapterSavedItems recyclerAdapterSavedItems;

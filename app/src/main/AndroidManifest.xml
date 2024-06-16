@@ -18,7 +18,7 @@
             android:name=".controller.AboutLicenseActivity"
             android:exported="false" />
         <activity
-            android:name=".controller.SavedItemsActivity"
+            android:name=".controller.SavedItemsListActivity"
             android:exported="false"
             android:screenOrientation="portrait" />
         <activity

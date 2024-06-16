@@ -12,7 +12,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.tfg.R;
 import com.example.tfg.controller.ApiListActivity;
-import com.example.tfg.controller.SavedItemsActivity;
+import com.example.tfg.controller.SavedItemsListActivity;
 import com.example.tfg.controller.MyListsActivity;
 import com.example.tfg.model.ListItem;
 
@@ -81,31 +81,31 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.Recycl
                         startListItemActivity(holder, ApiListActivity.class, "/armor/");
                         break;
                     case "My Characters":
-                        startFirebaseListItemActivity(holder, SavedItemsActivity.class, "characters");
+                        startFirebaseListItemActivity(holder, SavedItemsListActivity.class, "characters");
                         break;
                     case "My Creatures":
-                        startFirebaseListItemActivity(holder, SavedItemsActivity.class, "creatures");
+                        startFirebaseListItemActivity(holder, SavedItemsListActivity.class, "creatures");
                         break;
                     case"My Spells":
-                        startFirebaseListItemActivity(holder, SavedItemsActivity.class,"spells");
+                        startFirebaseListItemActivity(holder, SavedItemsListActivity.class,"spells");
                         break;
                     case"My Backgrounds":
-                        startFirebaseListItemActivity(holder, SavedItemsActivity.class,"backgrounds");
+                        startFirebaseListItemActivity(holder, SavedItemsListActivity.class,"backgrounds");
                         break;
                     case"My Races":
-                        startFirebaseListItemActivity(holder, SavedItemsActivity.class,"races");
+                        startFirebaseListItemActivity(holder, SavedItemsListActivity.class,"races");
                         break;
                     case"My Classes":
-                        startFirebaseListItemActivity(holder, SavedItemsActivity.class,"classes");
+                        startFirebaseListItemActivity(holder, SavedItemsListActivity.class,"classes");
                         break;
                     case"My Magic items":
-                        startFirebaseListItemActivity(holder, SavedItemsActivity.class,"magic items");
+                        startFirebaseListItemActivity(holder, SavedItemsListActivity.class,"magic items");
                         break;
                     case"My Weapons":
-                        startFirebaseListItemActivity(holder, SavedItemsActivity.class,"weapons");
+                        startFirebaseListItemActivity(holder, SavedItemsListActivity.class,"weapons");
                         break;
                     case"My Armors":
-                        startFirebaseListItemActivity(holder, SavedItemsActivity.class,"armors");
+                        startFirebaseListItemActivity(holder, SavedItemsListActivity.class,"armors");
                         break;
                 }
             }
@@ -131,7 +131,7 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.Recycl
         intent.putExtra("URL", url);
         holder.itemView.getContext().startActivity(intent);
     }
-    private void startFirebaseListItemActivity(RecyclerHolder holder, Class<SavedItemsActivity> activityClass, String type) {
+    private void startFirebaseListItemActivity(RecyclerHolder holder, Class<SavedItemsListActivity> activityClass, String type) {
         Intent intent = new Intent(holder.itemView.getContext(), activityClass);
         intent.putExtra("TYPE", type);
         holder.itemView.getContext().startActivity(intent);
